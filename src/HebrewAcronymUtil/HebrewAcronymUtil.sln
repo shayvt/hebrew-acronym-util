@@ -2,11 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HebrewAcronymUtil", "HebrewAcronymUtil\HebrewAcronymUtil.csproj", "{74579089-EE6A-46F6-8321-41E85862ABBD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{EFA0F936-A79D-4DF8-AA13-B4EDA15F6288}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HebrewAcronymUtil.Tests.Unit", "..\..\tests\HebrewAcronymUtil.Tests.Unit\HebrewAcronymUtil.Tests.Unit.csproj", "{03FB18BE-292A-4040-8A2F-23F3B166BD37}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{79FE75A9-56D2-4365-8C9B-9D103EA763AF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HebrewAcronymUtil.Tests.Unit", "..\HebrewAcronymUtil.Tests.Unit\HebrewAcronymUtil.Tests.Unit.csproj", "{F7E1351B-B973-4D3F-902C-76FDCD0529D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,13 +14,11 @@ Global
 		{74579089-EE6A-46F6-8321-41E85862ABBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74579089-EE6A-46F6-8321-41E85862ABBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74579089-EE6A-46F6-8321-41E85862ABBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03FB18BE-292A-4040-8A2F-23F3B166BD37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03FB18BE-292A-4040-8A2F-23F3B166BD37}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03FB18BE-292A-4040-8A2F-23F3B166BD37}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03FB18BE-292A-4040-8A2F-23F3B166BD37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{03FB18BE-292A-4040-8A2F-23F3B166BD37} = {EFA0F936-A79D-4DF8-AA13-B4EDA15F6288}
-		{74579089-EE6A-46F6-8321-41E85862ABBD} = {79FE75A9-56D2-4365-8C9B-9D103EA763AF}
 	EndGlobalSection
 EndGlobal

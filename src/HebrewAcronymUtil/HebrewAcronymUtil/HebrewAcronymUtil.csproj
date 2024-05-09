@@ -7,12 +7,20 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <EmbeddedResource Include="..\..\..\data-sources\common.json">
-        <Link>Resources\common.json</Link>
-      </EmbeddedResource>
-      <EmbeddedResource Include="..\..\..\data-sources\judaism.json">
-        <Link>Resources\judaism.json</Link>
-      </EmbeddedResource>
-    </ItemGroup>
+        <EmbeddedResource Include="..\..\..\data-sources\common.json">
+            <Link>Resources\common.json</Link>
+        </EmbeddedResource>
+        <EmbeddedResource Include="..\..\..\data-sources\judaism.json">
+            <Link>Resources\judaism.json</Link>
+        </EmbeddedResource>
 
+    </ItemGroup>
+    <ItemGroup>
+        <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
+            <_Parameter1>$(MSBuildProjectName).Tests.Unit</_Parameter1>
+        </AssemblyAttribute>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="System.Text.Json" Version="8.0.3" />
+    </ItemGroup>
 </Project>
