@@ -25,7 +25,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\HebrewAcronymUtil\HebrewAcronymUtil\HebrewAcronymUtil.csproj" />
+      <ProjectReference Include="..\HebrewAcronymUtil\HebrewAcronymUtil.csproj" />
     </ItemGroup>
 
 </Project>

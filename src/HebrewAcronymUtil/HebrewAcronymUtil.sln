@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HebrewAcronymUtil", "HebrewAcronymUtil\HebrewAcronymUtil.csproj", "{74579089-EE6A-46F6-8321-41E85862ABBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HebrewAcronymUtil.Tests.Unit", "..\HebrewAcronymUtil.Tests.Unit\HebrewAcronymUtil.Tests.Unit.csproj", "{F7E1351B-B973-4D3F-902C-76FDCD0529D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HebrewAcronymUtil.Tests.Unit", "HebrewAcronymUtil.Tests.Unit\HebrewAcronymUtil.Tests.Unit.csproj", "{F79FD37A-1EA4-4210-9187-EAE7F85641C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,10 +14,10 @@ Global
 		{74579089-EE6A-46F6-8321-41E85862ABBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74579089-EE6A-46F6-8321-41E85862ABBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74579089-EE6A-46F6-8321-41E85862ABBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7E1351B-B973-4D3F-902C-76FDCD0529D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F79FD37A-1EA4-4210-9187-EAE7F85641C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79FD37A-1EA4-4210-9187-EAE7F85641C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F79FD37A-1EA4-4210-9187-EAE7F85641C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F79FD37A-1EA4-4210-9187-EAE7F85641C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
