@@ -5,7 +5,7 @@ using NSubstitute;
 
 namespace HebrewAcronymUtil.Tests.Unit;
 
-public class AcronymsTests
+public class CategoryAcronymsTests
 {
     [Fact]
     public async Task Load_ShouldLoadAcronymsFromAssemblyResources()
@@ -29,6 +29,7 @@ public class AcronymsTests
 
         await sut.Load();
 
+        sut.Should().HaveCount(3);
         sut.Should().ContainKey("קבה").WhoseValue.Should().Be("קדוש ברוך הוא");
         sut.Should().ContainKey("בנא").WhoseValue.Should().Be("בני אדם");
         sut.Should().ContainKey("חו").WhoseValue.Should().Be("חס וחלילה");
