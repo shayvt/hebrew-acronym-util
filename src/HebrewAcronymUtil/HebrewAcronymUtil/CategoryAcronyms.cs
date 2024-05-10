@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Reflection;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HebrewAcronymUtil.AssemblyWrapper;
 
 namespace HebrewAcronymUtil;
 
-internal class CategoryAcronyms(IAssemblyWrapper assemblyWrapper) : Acronyms
+internal class CategoryAcronyms(in IAssemblyWrapper assemblyWrapper) : Acronyms
 {
     private readonly IAssemblyWrapper _assemblyWrapper = assemblyWrapper;
     public required AcronymCategory Category { get; init; }
@@ -25,8 +23,8 @@ internal class CategoryAcronyms(IAssemblyWrapper assemblyWrapper) : Acronyms
             return;
         }
 
-        _acronyms = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ??
-                    new Dictionary<string, string>();
+        AcronymsDict = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ??
+                       new Dictionary<string, string>();
     }
 
     public string? ConvertAcronymToWord(string acronym)
@@ -36,6 +34,6 @@ internal class CategoryAcronyms(IAssemblyWrapper assemblyWrapper) : Acronyms
             throw new ArgumentNullException(nameof(acronym));
         }
 
-        return _acronyms.GetValueOrDefault(acronym);
+        return AcronymsDict.GetValueOrDefault(acronym);
     }
 }
