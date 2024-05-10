@@ -6,24 +6,27 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  SOLUTION_PATH: ./src/HebrewAcronymUtil/HebrewAcronymUtil.sln
+
 jobs:
   build:
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v1
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '8.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore
+        run: dotnet restore ${{ env.SOLUTION_PATH }}
 
       - name: Build
-        run: dotnet build --no-restore
+        run: dotnet build ${{ env.SOLUTION_PATH }} --no-restore
 
       - name: Test
-        run: dotnet test --no-build --verbosity normal
+        run: dotnet test ${{ env.SOLUTION_PATH }} --no-build --verbosity normal
