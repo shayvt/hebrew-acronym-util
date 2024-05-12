@@ -1,6 +1,6 @@
 using System.Text;
 using FluentAssertions;
-using HebrewAcronymUtil.AssemblyWrapper;
+using HebrewAcronymUtil.ResourcesProviders;
 using NSubstitute;
 
 namespace HebrewAcronymUtil.Tests.Unit;
@@ -10,7 +10,7 @@ public class CategoryAcronymsTests
     [Fact]
     public async Task Load_ShouldLoadAcronymsFromAssemblyResources()
     {
-        var assemblyWrapper = Substitute.For<IAssemblyWrapper>();
+        var resourceProvider = Substitute.For<IResourceProvider>();
 
         const string data = """
                             {
@@ -20,9 +20,9 @@ public class CategoryAcronymsTests
                             }
                             """;
         var byteArray = Encoding.UTF8.GetBytes(data);
-        assemblyWrapper.GetManifestResourceStream(Arg.Any<string>()).Returns(new MemoryStream(byteArray));
+        resourceProvider.GetResourceStream(Arg.Any<string>()).Returns(new MemoryStream(byteArray));
 
-        CategoryAcronyms sut = new(assemblyWrapper)
+        CategoryAcronyms sut = new(resourceProvider)
         {
             Category = AcronymCategory.Common
         };
@@ -38,25 +38,24 @@ public class CategoryAcronymsTests
     [Fact]
     public async Task Load_ShouldCallGetManifestResourceStreamWithResourceNameMatchTheCategory()
     {
-        var assemblyWrapper = Substitute.For<IAssemblyWrapper>();
+        var resourceProvider = Substitute.For<IResourceProvider>();
 
         const string data = """
                             {"בנא": "בני אדם" }
                             """;
 
         var byteArray = Encoding.UTF8.GetBytes(data);
-        assemblyWrapper.GetManifestResourceStream(Arg.Any<string>()).Returns(new MemoryStream(byteArray));
+        resourceProvider.GetResourceStream(Arg.Any<string>()).Returns(new MemoryStream(byteArray));
 
-        CategoryAcronyms sut = new(assemblyWrapper)
+        CategoryAcronyms sut = new(resourceProvider)
         {
             Category = AcronymCategory.Common
         };
 
-        var expectedResourceName =
-            $"{sut.GetType().Namespace}.Resources.{Enum.GetName(typeof(AcronymCategory), sut.Category)?.ToLower()}.json";
+        var expectedResourceName = Enum.GetName(typeof(AcronymCategory), sut.Category)?.ToLower()!;
 
         await sut.Load();
 
-        assemblyWrapper.Received().GetManifestResourceStream(expectedResourceName);
+        resourceProvider.Received().GetResourceStream(expectedResourceName);
     }
 }

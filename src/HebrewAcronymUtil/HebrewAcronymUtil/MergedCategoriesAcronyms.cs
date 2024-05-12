@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using HebrewAcronymUtil.AssemblyWrapper;
+using HebrewAcronymUtil.ResourcesProviders;
 
 namespace HebrewAcronymUtil;
 
-public class MergedCategoriesAcronyms(in IAssemblyWrapper assemblyWrapper) : Acronyms
+public class MergedCategoriesAcronyms(in IResourceProvider resourceProvider) : Acronyms
 {
-    private readonly IAssemblyWrapper _assemblyWrapper = assemblyWrapper;
+    private readonly IResourceProvider _resourceProvider = resourceProvider;
 
     public required List<AcronymCategory> Categories { get; init; }
 
@@ -14,7 +14,7 @@ public class MergedCategoriesAcronyms(in IAssemblyWrapper assemblyWrapper) : Acr
     {
         foreach (var category in Categories)
         {
-            var categoryAcronyms = new CategoryAcronyms(_assemblyWrapper)
+            var categoryAcronyms = new CategoryAcronyms(_resourceProvider)
             {
                 Category = category
             };

@@ -2,21 +2,19 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using System.Threading.Tasks;
-using HebrewAcronymUtil.AssemblyWrapper;
+using HebrewAcronymUtil.ResourcesProviders;
 
 namespace HebrewAcronymUtil;
 
-internal class CategoryAcronyms(in IAssemblyWrapper assemblyWrapper) : Acronyms
+internal class CategoryAcronyms(in IResourceProvider resourceProvider) : Acronyms
 {
-    private readonly IAssemblyWrapper _assemblyWrapper = assemblyWrapper;
+    private readonly IResourceProvider _resourceProvider = resourceProvider;
     public required AcronymCategory Category { get; init; }
 
     internal async Task Load()
     {
-        var resourceName =
-            $"{GetType().Namespace}.Resources.{Enum.GetName(typeof(AcronymCategory), Category)?.ToLower()}.json";
-
-        await using var stream = _assemblyWrapper.GetManifestResourceStream(resourceName);
+        await using var stream =
+            _resourceProvider.GetResourceStream(Enum.GetName(typeof(AcronymCategory), Category)?.ToLower());
 
         if (stream is null)
         {
