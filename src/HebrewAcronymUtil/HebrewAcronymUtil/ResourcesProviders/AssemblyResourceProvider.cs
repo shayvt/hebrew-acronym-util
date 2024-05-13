@@ -1,13 +1,25 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace HebrewAcronymUtil.ResourcesProviders;
 
-internal class AssemblyResourceProvider(Assembly assembly) : IResourceProvider
+internal static class AssemblyResourceProvider
 {
-    public Stream? GetResourceStream(string resourceIdentifier) =>
-        assembly.GetManifestResourceStream(GetResourceName(resourceIdentifier));
+    internal static Stream? GetResourceStream(AcronymCategory category) => _getResourceStream(category);
+    
+    private static Func<AcronymCategory, Stream?> _getResourceStream = category =>
+        typeof(AssemblyResourceProvider).Assembly.GetManifestResourceStream(GetResourceName(category));
 
-    internal string GetResourceName(string resourceIdentifier) =>
-        $"{GetType().Namespace}.Resources.{resourceIdentifier.ToLower()}.json";
+    internal static string GetResourceName(AcronymCategory category) =>
+        $"{typeof(AssemblyResourceProvider)}.Resources.{Enum.GetName(typeof(AcronymCategory), category)?.ToLower()}.json";
+
+    [ThreadStatic]
+    private static Dictionary<AcronymCategory,Stream?>? _testResourcesStreams;
+    
+    internal static void SetTestGetResourceStream(Dictionary<AcronymCategory,Stream?> resourcesStreams)
+    {
+        _testResourcesStreams = resourcesStreams;
+        _getResourceStream = category => _testResourcesStreams[category];
+    }
 }

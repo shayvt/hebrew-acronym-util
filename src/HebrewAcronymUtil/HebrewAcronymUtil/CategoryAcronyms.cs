@@ -6,15 +6,14 @@ using HebrewAcronymUtil.ResourcesProviders;
 
 namespace HebrewAcronymUtil;
 
-internal class CategoryAcronyms(in IResourceProvider resourceProvider) : Acronyms
+internal class CategoryAcronyms : Acronyms
 {
-    private readonly IResourceProvider _resourceProvider = resourceProvider;
     public required AcronymCategory Category { get; init; }
 
     internal async Task Load()
     {
         await using var stream =
-            _resourceProvider.GetResourceStream(Enum.GetName(typeof(AcronymCategory), Category)?.ToLower());
+            AssemblyResourceProvider.GetResourceStream(Category);
 
         if (stream is null)
         {

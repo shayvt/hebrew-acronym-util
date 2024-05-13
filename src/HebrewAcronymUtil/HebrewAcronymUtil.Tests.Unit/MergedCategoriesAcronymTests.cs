@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using FluentAssertions;
 using HebrewAcronymUtil.ResourcesProviders;
-using NSubstitute;
 
 namespace HebrewAcronymUtil.Tests.Unit;
 
@@ -10,30 +9,30 @@ public class MergedCategoriesAcronymTests
     [Fact]
     public async Task Load_ShouldLoadAcronymsFromAssemblyResources()
     {
-        var assemblyWrapper = Substitute.For<IResourceProvider>();
-
         const string commonData = """
                                   {
                                     "קבה": "קדוש ברוך הוא",
                                     "בנא": "בני אדם",
-                                  "חו": "חס וחלילה"  
+                                    "חו": "חס וחלילה"
                                   }
                                   """;
         var commonStream = new MemoryStream(Encoding.UTF8.GetBytes(commonData));
-        assemblyWrapper
-            .GetResourceStream(Arg.Is<string>(s => s.Contains("common")))
-            .Returns(commonStream);
 
         const string judaismData = """
                                    {
-                                   "יצהר": "יצר הרע"  
+                                   "יצהר": "יצר הרע"    
                                    }
                                    """;
         var judaismStream = new MemoryStream(Encoding.UTF8.GetBytes(judaismData));
-        assemblyWrapper.GetResourceStream(Arg.Is<string>(s => s.Contains("judaism")))
-            .Returns(judaismStream);
 
-        MergedCategoriesAcronyms sut = new(assemblyWrapper)
+        AssemblyResourceProvider.SetTestGetResourceStream(
+            new Dictionary<AcronymCategory, Stream?>
+            {
+                { AcronymCategory.Common, commonStream },
+                { AcronymCategory.Judaism, judaismStream }
+            });
+
+        MergedCategoriesAcronyms sut = new()
         {
             Categories =
             [
