@@ -17,20 +17,11 @@ internal class CategoryAcronyms : Acronyms
 
         if (stream is null)
         {
+            AcronymsDict.Clear();
             return;
         }
 
         AcronymsDict = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ??
                        new Dictionary<string, string>();
-    }
-
-    public string? ConvertAcronymToWord(string acronym)
-    {
-        if (acronym is null)
-        {
-            throw new ArgumentNullException(nameof(acronym));
-        }
-
-        return AcronymsDict.GetValueOrDefault(acronym);
     }
 }
