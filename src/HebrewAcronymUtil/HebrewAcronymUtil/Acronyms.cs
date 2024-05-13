@@ -54,13 +54,27 @@ public abstract class Acronyms : IEnumerable<KeyValuePair<string, string>>
         return false;
     }
 
-    public string ConvertAcronymToWord(string acronym)
+    public string CleanAcronym(string acronym)
     {
         if (acronym is null)
         {
             throw new ArgumentNullException(nameof(acronym));
         }
 
-        return AcronymsDict.GetValueOrDefault(acronym);
+        return
+            acronym.Replace("\"", "")
+                .Replace("'", "");
+    }
+
+    public string? ConvertAcronymToWord(string acronym)
+    {
+        if (acronym is null)
+        {
+            throw new ArgumentNullException(nameof(acronym));
+        }
+
+        var cleaned = CleanAcronym(acronym);
+
+        return AcronymsDict.GetValueOrDefault(cleaned);
     }
 }

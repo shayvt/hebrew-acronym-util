@@ -165,4 +165,33 @@ public class CategoryAcronymsTests
 
         sut.IsAcronym(null).Should().BeFalse();
     }
+    
+    [Fact]
+    public async Task ConvertAcronymToWord_ShouldReturnMatchingWords()
+    {
+        const string data = """
+                            {
+                            "קבה": "קדוש ברוך הוא",
+                            "בנא": "בני אדם",
+                            "חו": "חס וחלילה"
+                            }
+                            """;
+        
+        var byteArray = Encoding.UTF8.GetBytes(data);
+        AssemblyResourceProvider.SetTestGetResourceStream(
+            new Dictionary<AcronymCategory, Stream?>
+            {
+                { AcronymCategory.Common, new MemoryStream(byteArray) }
+            });
+        
+        CategoryAcronyms sut = new()
+        {
+            Category = AcronymCategory.Common
+        };
+
+        await sut.Load();
+        var acronym = sut.ConvertAcronymToWord("""בנ"א""");
+        
+        acronym.Should().Be("בני אדם");
+    }
 }
