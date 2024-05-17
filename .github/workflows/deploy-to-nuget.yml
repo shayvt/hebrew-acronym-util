@@ -23,10 +23,13 @@ jobs:
         run: dotnet restore ${{ env.SOLUTION_PATH }}
 
       - name: Build
-        run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
+        run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Debug --no-restore
 
       - name: Test
         run: dotnet test ${{ env.SOLUTION_PATH }} --no-build --verbosity normal
+
+      - name: Build
+        run: dotnet build ${{ env.SOLUTION_PATH }} --configuration Release --no-restore
 
       - name: Pack
         run: dotnet pack ${{ env.NUGET_PACKAGE_PATH }} --configuration Release --no-build --output nupkgs
