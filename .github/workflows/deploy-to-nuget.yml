@@ -4,7 +4,7 @@ on: workflow_dispatch
 
 env:
   SOLUTION_PATH: ./src/HebrewAcronymUtil/HebrewAcronymUtil.sln
-  NUGET_PACKAGE_PATH: .\src\HebrewAcronymUtil\HebrewAcronymUtil\HebrewAcronymUtil.csproj
+  NUGET_PACKAGE_PATH: ./src/HebrewAcronymUtil/HebrewAcronymUtil/HebrewAcronymUtil.csproj
 
 jobs:
   build:
