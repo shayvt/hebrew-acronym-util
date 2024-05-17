@@ -1,6 +1,7 @@
 using System.Text;
 using FluentAssertions;
 using HebrewAcronymUtil.ResourcesProviders;
+using NSubstitute;
 
 namespace HebrewAcronymUtil.Tests.Unit;
 
@@ -17,13 +18,14 @@ public class CategoryAcronymsTests
                             }
                             """;
         var byteArray = Encoding.UTF8.GetBytes(data);
-        AssemblyResourceProvider.SetTestGetResourceStream(
-            new Dictionary<AcronymCategory, Stream?>
-            {
-                { AcronymCategory.Common, new MemoryStream(byteArray) }
-            });
 
-        CategoryAcronyms sut = new()
+        var resourceProvider = Substitute.For<IResourceProvider>();
+
+        resourceProvider
+            .GetResourceStream(Arg.Any<AcronymCategory>())
+            .Returns(new MemoryStream(byteArray));
+
+        CategoryAcronyms sut = new(resourceProvider)
         {
             Category = AcronymCategory.Common
         };
@@ -39,11 +41,11 @@ public class CategoryAcronymsTests
     [Fact]
     public async Task Load_ShouldClearAcronymsWhenResourceStreamIsNull()
     {
-        AssemblyResourceProvider.SetTestGetResourceStream(
-            new Dictionary<AcronymCategory, Stream?>
-            {
-                { AcronymCategory.Common, null }
-            });
+        var resourceProvider = Substitute.For<IResourceProvider>();
+
+        resourceProvider
+            .GetResourceStream(Arg.Any<AcronymCategory>())
+            .Returns(null as Stream);
 
         CategoryAcronyms sut = new()
         {
@@ -143,7 +145,7 @@ public class CategoryAcronymsTests
 
         sut.IsAcronym("ב").Should().BeFalse();
     }
-    
+
     [Fact]
     public void IsAcronym_ShouldReturnFalseForTwoLetters()
     {
@@ -165,7 +167,7 @@ public class CategoryAcronymsTests
 
         sut.IsAcronym(null).Should().BeFalse();
     }
-    
+
     [Fact]
     public async Task ConvertAcronymToWord_ShouldReturnMatchingWords()
     {
@@ -176,22 +178,22 @@ public class CategoryAcronymsTests
                             "חו": "חס וחלילה"
                             }
                             """;
-        
+
         var byteArray = Encoding.UTF8.GetBytes(data);
-        AssemblyResourceProvider.SetTestGetResourceStream(
-            new Dictionary<AcronymCategory, Stream?>
-            {
-                { AcronymCategory.Common, new MemoryStream(byteArray) }
-            });
-        
-        CategoryAcronyms sut = new()
+
+        var resourceProvider = Substitute.For<IResourceProvider>();
+        resourceProvider
+            .GetResourceStream(Arg.Any<AcronymCategory>())
+            .Returns(new MemoryStream(byteArray));
+
+        CategoryAcronyms sut = new(resourceProvider)
         {
             Category = AcronymCategory.Common
         };
 
         await sut.Load();
         var acronym = sut.ConvertAcronymToWord("""בנ"א""");
-        
+
         acronym.Should().Be("בני אדם");
     }
 }
