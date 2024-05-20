@@ -21,6 +21,8 @@ public class MergedCategoriesAcronyms : Acronyms
 
     public async Task Load()
     {
+        AcronymsDict.Clear();
+
         foreach (var category in Categories)
         {
             var categoryAcronyms = new CategoryAcronyms(_resourceProvider)

@@ -192,7 +192,7 @@ public class CategoryAcronymsTests
         };
 
         await sut.Load();
-        var acronym = sut.ConvertAcronymToWord("""בנ"א""");
+        var acronym = sut.ConvertAcronymToWords("""בנ"א""");
 
         acronym.Should().Be("בני אדם");
     }

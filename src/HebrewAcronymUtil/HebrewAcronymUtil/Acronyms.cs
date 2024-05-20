@@ -54,7 +54,7 @@ public abstract class Acronyms : IEnumerable<KeyValuePair<string, string>>
         return false;
     }
 
-    public string CleanAcronym(string acronym)
+    public string RemoveAcronymChars(string acronym)
     {
         if (acronym is null)
         {
@@ -66,14 +66,14 @@ public abstract class Acronyms : IEnumerable<KeyValuePair<string, string>>
                 .Replace("'", "");
     }
 
-    public string? ConvertAcronymToWord(string acronym)
+    public string? ConvertAcronymToWords(string acronym)
     {
         if (acronym is null)
         {
             throw new ArgumentNullException(nameof(acronym));
         }
 
-        var cleaned = CleanAcronym(acronym);
+        var cleaned = RemoveAcronymChars(acronym);
 
         return AcronymsDict.GetValueOrDefault(cleaned);
     }
