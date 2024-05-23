@@ -8,7 +8,8 @@ namespace HebrewAcronymUtil;
 internal class CategoryAcronyms : Acronyms
 {
     private readonly IResourceProvider _resourceProvider;
-    public required AcronymCategory Category { get; init; }
+
+    public required List<AcronymCategory> Categories { get; init; }
 
     public CategoryAcronyms()
     {
@@ -20,18 +21,33 @@ internal class CategoryAcronyms : Acronyms
         _resourceProvider = resourceProvider;
     }
 
-    internal async Task Load()
+    private async Task<Dictionary<string, string>> GetAcronyms(AcronymCategory category)
     {
         await using var stream =
-            _resourceProvider.GetResourceStream(Category);
+            _resourceProvider.GetResourceStream(category);
 
         if (stream is null)
         {
             AcronymsDict.Clear();
-            return;
+            return new Dictionary<string, string>();
         }
 
-        AcronymsDict = await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ??
-                       new Dictionary<string, string>();
+        return await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ??
+               new Dictionary<string, string>();
+    }
+
+    public async Task Load()
+    {
+        AcronymsDict.Clear();
+
+        foreach (var category in Categories)
+        {
+            var acronyms = await GetAcronyms(category);
+
+            foreach (var (key, value) in acronyms)
+            {
+                AcronymsDict[key] = value;
+            }
+        }
     }
 }
