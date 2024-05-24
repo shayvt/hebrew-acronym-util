@@ -5,7 +5,7 @@ using NSubstitute;
 
 namespace HebrewAcronymUtil.Tests.Unit;
 
-public class CategoryAcronymsTests
+public class CategorizedHebrewAcronymsTests
 {
     [Fact]
     public async Task Load_ShouldLoadAcronymsFromAssemblyResources()
@@ -36,7 +36,7 @@ public class CategoryAcronymsTests
             .GetResourceStream(Arg.Is<AcronymCategory>(a => a == AcronymCategory.Judaism))
             .Returns(judaismStream);
 
-        CategoryAcronyms sut = new(resourceProvider)
+        CategorizedHebrewAcronyms sut = new(resourceProvider)
         {
             Categories =
             [
@@ -63,7 +63,7 @@ public class CategoryAcronymsTests
             .GetResourceStream(Arg.Any<AcronymCategory>())
             .Returns(null as Stream);
 
-        CategoryAcronyms sut = new()
+        CategorizedHebrewAcronyms sut = new()
         {
             Categories = [AcronymCategory.Common]
         };
@@ -92,7 +92,7 @@ public class CategoryAcronymsTests
             .GetResourceStream(Arg.Any<AcronymCategory>())
             .Returns(new MemoryStream(byteArray));
 
-        CategoryAcronyms sut = new(resourceProvider)
+        CategorizedHebrewAcronyms sut = new(resourceProvider)
         {
             Categories = [AcronymCategory.Common]
         };
@@ -133,7 +133,7 @@ public class CategoryAcronymsTests
             .GetResourceStream(Arg.Is<AcronymCategory>(a => a == AcronymCategory.Judaism))
             .Returns(judaismStream);
 
-        CategoryAcronyms sut = new(resourceProvider)
+        CategorizedHebrewAcronyms sut = new(resourceProvider)
         {
             Categories =
             [

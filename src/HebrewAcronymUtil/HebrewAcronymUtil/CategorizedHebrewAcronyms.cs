@@ -5,18 +5,18 @@ using HebrewAcronymUtil.ResourcesProviders;
 
 namespace HebrewAcronymUtil;
 
-public class CategoryAcronyms : HebrewAcronyms
+public class CategorizedHebrewAcronyms : HebrewAcronyms
 {
     private readonly IResourceProvider _resourceProvider;
 
     public required List<AcronymCategory> Categories { get; init; }
 
-    public CategoryAcronyms()
+    public CategorizedHebrewAcronyms()
     {
         _resourceProvider = new AssemblyResourceProvider();
     }
 
-    internal CategoryAcronyms(IResourceProvider resourceProvider)
+    internal CategorizedHebrewAcronyms(IResourceProvider resourceProvider)
     {
         _resourceProvider = resourceProvider;
     }
