@@ -14,7 +14,7 @@ CategorizedHebrewAcronyms acronyms = new()
             ]
         };
 await acronyms.Load();
-string words = acronyms.ConvertAcronymToWords("""בנ"א""");
+var words = acronyms.ConvertAcronymToWords("""בנ"א""");
 Console.WriteLine(words); // בני אדם
 ```
 
