@@ -40,15 +40,15 @@ public static class HebrewAcronymUtils
         return false;
     }
 
-    public static string RemoveAcronymChars(string acronym)
+    public static string RemoveAcronymQuoteChars(string acronym)
     {
         if (acronym is null)
         {
             throw new ArgumentNullException(nameof(acronym));
         }
 
-        return
-            acronym.Replace("\"", "")
-                .Replace("'", "");
+        return acronym
+            .Replace("\"", "")
+            .Replace("'", "");
     }
 }
