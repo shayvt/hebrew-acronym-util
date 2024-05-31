@@ -6,12 +6,12 @@ public static class HebrewAcronymUtils
 {
     public static bool IsAcronym(string? word)
     {
-        if (word is null || word.Length <= 2)
+        if (word is null)
         {
             return false;
         }
 
-        if (word[^1] is '\'')
+        if (word.Length > 1 && word[^1] is '\'')
         {
             var isAcronym = true;
 
@@ -23,7 +23,7 @@ public static class HebrewAcronymUtils
             return isAcronym;
         }
 
-        if (word[^2] == '"')
+        if (word.Length > 2 && word[^2] == '"')
         {
             var isAcronym = true;
 
