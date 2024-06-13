@@ -5,7 +5,7 @@ using HebrewAcronymUtil.ResourcesProviders;
 
 namespace HebrewAcronymUtil;
 
-public class CategorizedHebrewAcronyms : HebrewAcronyms
+public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
 {
     private readonly IResourceProvider _resourceProvider;
 

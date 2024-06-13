@@ -74,7 +74,7 @@ public class HebrewAcronymUtilsTests
     [Fact]
     public void RemoveAcronymQuoteChars_ShouldThrowForNullAcronym()
     {
-        Action act = () => HebrewAcronymUtils.RemoveAcronymQuoteChars(null);
+        Action act = () => HebrewAcronymUtils.RemoveAcronymQuoteChars(null!);
         
         act.Should().Throw<ArgumentNullException>().WithParameterName("acronym");
     }
