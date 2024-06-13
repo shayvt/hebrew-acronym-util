@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Threading.Tasks;
 using HebrewAcronymUtil.ResourcesProviders;
@@ -29,7 +30,7 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
 
         if (stream is null)
         {
-            AcronymsDict.Clear();
+            Trace.Write($"Resource not found for {category}");
             return new Dictionary<string, string>();
         }
 
