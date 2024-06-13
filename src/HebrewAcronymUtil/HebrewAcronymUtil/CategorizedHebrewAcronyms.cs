@@ -8,6 +8,7 @@ namespace HebrewAcronymUtil;
 public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
 {
     private readonly IResourceProvider _resourceProvider;
+    private bool _isLoaded;
 
     public required List<AcronymCategory> Categories { get; init; }
 
@@ -38,7 +39,10 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
 
     public async Task Load()
     {
-        AcronymsDict.Clear();
+        if (_isLoaded)
+        {
+            return;
+        }
 
         foreach (var category in Categories)
         {
@@ -49,5 +53,7 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
                 AcronymsDict[key] = value;
             }
         }
+
+        _isLoaded = true;
     }
 }
