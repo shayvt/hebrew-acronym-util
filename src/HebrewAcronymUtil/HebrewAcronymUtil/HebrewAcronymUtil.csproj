@@ -6,6 +6,7 @@
         <LangVersion>12</LangVersion>
         <Version>0.0.7</Version>
         <PackageReadmeFile>readme.md</PackageReadmeFile>
+        <Authors>Shay V</Authors>
     </PropertyGroup>
 
     <ItemGroup>
