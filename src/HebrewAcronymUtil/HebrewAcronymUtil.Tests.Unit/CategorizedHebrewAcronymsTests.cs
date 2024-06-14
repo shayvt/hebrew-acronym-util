@@ -63,7 +63,7 @@ public class CategorizedHebrewAcronymsTests
             .GetResourceStream(Arg.Any<AcronymCategory>())
             .Returns(null as Stream);
 
-        CategorizedHebrewAcronyms sut = new()
+        CategorizedHebrewAcronyms sut = new(resourceProvider)
         {
             Categories = [AcronymCategory.Common]
         };
