@@ -38,7 +38,7 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
                new Dictionary<string, string>();
     }
 
-    public async Task Load()
+    public async Task Initialize()
     {
         if (_isLoaded)
         {

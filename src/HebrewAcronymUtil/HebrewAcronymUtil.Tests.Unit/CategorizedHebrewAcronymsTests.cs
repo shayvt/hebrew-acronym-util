@@ -45,7 +45,7 @@ public class CategorizedHebrewAcronymsTests
             ]
         };
 
-        await sut.Load();
+        await sut.Initialize();
 
         sut.Should().HaveCount(4);
         sut.Should().ContainKey("קבה").WhoseValue.Should().Be("קדוש ברוך הוא");
@@ -68,7 +68,7 @@ public class CategorizedHebrewAcronymsTests
             Categories = [AcronymCategory.Common]
         };
 
-        await sut.Load();
+        await sut.Initialize();
 
         sut.Should().HaveCount(0);
     }
@@ -97,7 +97,7 @@ public class CategorizedHebrewAcronymsTests
             Categories = [AcronymCategory.Common]
         };
 
-        await sut.Load();
+        await sut.Initialize();
         var acronym = sut.ConvertAcronymToWords("""בנ"א""");
 
         acronym.Should().Be("בני אדם");
@@ -142,7 +142,7 @@ public class CategorizedHebrewAcronymsTests
             ]
         };
 
-        await sut.Load();
+        await sut.Initialize();
 
         sut.Should().HaveCount(4);
         sut.Should().ContainKey("קבה").WhoseValue.Should().Be("קצין בריאות");
