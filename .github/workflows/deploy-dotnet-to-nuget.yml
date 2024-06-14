@@ -1,4 +1,4 @@
-﻿name: Deploy to NuGet
+﻿name: deploy-dotnet-to-nuget
 
 on: workflow_dispatch
 

@@ -13,7 +13,7 @@ CategorizedHebrewAcronyms acronyms = new()
                 AcronymCategory.Judaism
             ]
         };
-await acronyms.Load();
+await acronyms.Initialize();
 var words = acronyms.ConvertAcronymToWords("""בנ"א""");
 Console.WriteLine(words); // בני אדם
 ```
