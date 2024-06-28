@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using NSubstitute.ExceptionExtensions;
 
 namespace HebrewAcronymUtil.Tests.Unit;
 
@@ -89,5 +88,34 @@ public class HebrewAcronymUtilsTests
     public void RemoveAcronymQuoteChars_ShouldRemoveSingleQuote()
     {
         HebrewAcronymUtils.RemoveAcronymQuoteChars("עמ'").Should().Be("עמ");
+    }
+    
+    [Fact]
+    public void ExtractWordPrefix_WithPrefix_ReturnsPrefixAndWord()
+    {
+        const string word = "הבית";
+        var result = HebrewAcronymUtils.ExtractWordPrefix(word);
+
+        result.prefix.Should().Be("ה");
+        result.word.Should().Be("בית");
+    }
+
+    [Fact]
+    public void ExtractWordPrefix_WithoutPrefix_ReturnsEmptyPrefixAndOriginalWord()
+    {
+        const string word = "בית";
+        var result = HebrewAcronymUtils.ExtractWordPrefix(word);
+
+        result.prefix.Should().Be("");
+        result.word.Should().Be("בית");
+    }
+
+    [Fact]
+    public void ExtractWordPrefix_NullWord_ThrowsArgumentNullException()
+    {
+        string? word = null;
+        Action act = () => HebrewAcronymUtils.ExtractWordPrefix(word);
+
+        act.Should().Throw<ArgumentNullException>();
     }
 }

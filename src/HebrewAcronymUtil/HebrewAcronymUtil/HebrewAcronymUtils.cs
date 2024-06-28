@@ -51,4 +51,28 @@ public static class HebrewAcronymUtils
             .Replace("\"", "")
             .Replace("'", "");
     }
+
+    private static readonly string[] WordPrefixes =
+    [
+        "ה",
+        "ל"
+    ];
+
+    public static (string prefix, string word) ExtractWordPrefix(string word)
+    {
+        if (word is null)
+        {
+            throw new ArgumentNullException(nameof(word));
+        }
+
+        foreach (var prefix in WordPrefixes)
+        {
+            if (word.StartsWith(prefix))
+            {
+                return (prefix, word[prefix.Length..]);
+            }
+        }
+
+        return ("", word);
+    }
 }
