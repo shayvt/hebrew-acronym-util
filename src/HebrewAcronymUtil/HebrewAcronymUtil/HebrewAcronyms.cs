@@ -46,7 +46,7 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
             return converted;
         }
 
-        (var prefix, acronym) = HebrewAcronymUtils.ExtractWordPrefix(acronym);
+        (var prefix, acronym) = HebrewAcronymUtils.ExtractWordPrefix(cleaned);
 
         if (prefix == "")
         {

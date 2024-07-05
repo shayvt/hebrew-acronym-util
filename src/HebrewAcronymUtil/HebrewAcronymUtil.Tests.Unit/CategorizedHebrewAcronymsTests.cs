@@ -151,35 +151,35 @@ public class CategorizedHebrewAcronymsTests
         sut.Should().ContainKey("חו").WhoseValue.Should().Be("חס וחלילה");
         sut.Should().ContainKey("יצהר").WhoseValue.Should().Be("יצר הרע");
     }
-    
+
     [Fact]
     public void ConvertAcronymWithPrefixToWords_WithValidAcronymAndPrefix_ReturnsConvertedWords()
     {
         // Arrange
         var acronyms = new HebrewAcronymImplementationTest();
-        acronyms.AddAcronym("אב", "אבא");
-        var acronym = "האב";
+        acronyms.AddAcronym("יצהר", "יצר הרע");
+        const string acronym = """היצה"ר""";
 
         // Act
         var result = acronyms.ConvertAcronymWithPrefixToWords(acronym);
 
         // Assert
-        result.Should().Be("האבא");
+        result.Should().Be("היצר הרע");
     }
 
     [Fact]
-    public void ConvertAcronymWithPrefixToWords_WithValidAcronymWithoutPrefix_ReturnsNull()
+    public void ConvertAcronymWithPrefixToWords_WithValidAcronymWithoutPrefix_ReturnsConvertedWords()
     {
         // Arrange
         var acronyms = new HebrewAcronymImplementationTest();
-        acronyms.AddAcronym("אב", "אבא");
-        var acronym = "אב";
+        acronyms.AddAcronym("יצהר", "יצר הרע");
+        const string acronym = """יצה"ר""";
 
         // Act
         var result = acronyms.ConvertAcronymWithPrefixToWords(acronym);
 
         // Assert
-        result.Should().Be("אבא");
+        result.Should().Be("יצר הרע");
     }
 
     [Fact]
@@ -187,7 +187,8 @@ public class CategorizedHebrewAcronymsTests
     {
         // Arrange
         var acronyms = new HebrewAcronymImplementationTest();
-        var acronym = "גד";
+        acronyms.AddAcronym("יצהר", "יצר הרע");
+        const string acronym = """בג"ר""";
 
         // Act
         var result = acronyms.ConvertAcronymWithPrefixToWords(acronym);
