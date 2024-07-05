@@ -1,6 +1,7 @@
 using System.Text;
 using FluentAssertions;
 using HebrewAcronymUtil.ResourcesProviders;
+using HebrewAcronymUtil.Tests.Unit.TestUtils;
 using NSubstitute;
 
 namespace HebrewAcronymUtil.Tests.Unit;
@@ -149,5 +150,63 @@ public class CategorizedHebrewAcronymsTests
         sut.Should().ContainKey("בנא").WhoseValue.Should().Be("בני אדם");
         sut.Should().ContainKey("חו").WhoseValue.Should().Be("חס וחלילה");
         sut.Should().ContainKey("יצהר").WhoseValue.Should().Be("יצר הרע");
+    }
+    
+    [Fact]
+    public void ConvertAcronymWithPrefixToWords_WithValidAcronymAndPrefix_ReturnsConvertedWords()
+    {
+        // Arrange
+        var acronyms = new HebrewAcronymImplementationTest();
+        acronyms.AddAcronym("אב", "אבא");
+        var acronym = "האב";
+
+        // Act
+        var result = acronyms.ConvertAcronymWithPrefixToWords(acronym);
+
+        // Assert
+        result.Should().Be("האבא");
+    }
+
+    [Fact]
+    public void ConvertAcronymWithPrefixToWords_WithValidAcronymWithoutPrefix_ReturnsNull()
+    {
+        // Arrange
+        var acronyms = new HebrewAcronymImplementationTest();
+        acronyms.AddAcronym("אב", "אבא");
+        var acronym = "אב";
+
+        // Act
+        var result = acronyms.ConvertAcronymWithPrefixToWords(acronym);
+
+        // Assert
+        result.Should().Be("אבא");
+    }
+
+    [Fact]
+    public void ConvertAcronymWithPrefixToWords_WithInvalidAcronym_ReturnsNull()
+    {
+        // Arrange
+        var acronyms = new HebrewAcronymImplementationTest();
+        var acronym = "גד";
+
+        // Act
+        var result = acronyms.ConvertAcronymWithPrefixToWords(acronym);
+
+        // Assert
+        result.Should().BeNull();
+    }
+
+    [Fact]
+    public void ConvertAcronymWithPrefixToWords_WithNullAcronym_ThrowsArgumentNullException()
+    {
+        // Arrange
+        var acronyms = new HebrewAcronymImplementationTest();
+        string acronym = null;
+
+        // Act
+        Action act = () => acronyms.ConvertAcronymWithPrefixToWords(acronym);
+
+        // Assert
+        act.Should().Throw<ArgumentNullException>();
     }
 }

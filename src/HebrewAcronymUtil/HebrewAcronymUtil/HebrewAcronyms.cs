@@ -24,19 +24,45 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
         {
             throw new ArgumentNullException(nameof(acronym));
         }
-        
+
         var cleaned = HebrewAcronymUtils.RemoveAcronymQuoteChars(acronym);
 
         return ConvertAcronymWithoutQuoteToWords(cleaned);
     }
-    
+
+    public string? ConvertAcronymWithPrefixToWords(string acronym)
+    {
+        if (acronym is null)
+        {
+            throw new ArgumentNullException(nameof(acronym));
+        }
+
+        var cleaned = HebrewAcronymUtils.RemoveAcronymQuoteChars(acronym);
+
+        var converted = ConvertAcronymWithoutQuoteToWords(cleaned);
+
+        if (converted is not null)
+        {
+            return converted;
+        }
+
+        (var prefix, acronym) = HebrewAcronymUtils.ExtractWordPrefix(acronym);
+
+        if (prefix == "")
+        {
+            return null;
+        }
+        
+        return $"{prefix}{ConvertAcronymWithoutQuoteToWords(acronym)}";
+    }
+
     public string? ConvertAcronymWithoutQuoteToWords(string acronym)
     {
         if (acronym is null)
         {
             throw new ArgumentNullException(nameof(acronym));
         }
-    
+
         return AcronymsDict.GetValueOrDefault(acronym);
     }
 }

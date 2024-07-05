@@ -103,11 +103,11 @@ public class HebrewAcronymUtilsTests
     [Fact]
     public void ExtractWordPrefix_WithoutPrefix_ReturnsEmptyPrefixAndOriginalWord()
     {
-        const string word = "בית";
+        const string word = "זית";
         var result = HebrewAcronymUtils.ExtractWordPrefix(word);
 
         result.prefix.Should().Be("");
-        result.word.Should().Be("בית");
+        result.word.Should().Be("זית");
     }
 
     [Fact]

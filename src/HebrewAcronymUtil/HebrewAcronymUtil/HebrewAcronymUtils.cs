@@ -55,7 +55,8 @@ public static class HebrewAcronymUtils
     private static readonly string[] WordPrefixes =
     [
         "ה",
-        "ל"
+        "ל",
+        "ב"
     ];
 
     public static (string prefix, string word) ExtractWordPrefix(string word)
