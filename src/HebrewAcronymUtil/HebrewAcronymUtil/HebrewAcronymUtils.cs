@@ -55,7 +55,9 @@ public static class HebrewAcronymUtils
     private static readonly string[] WordPrefixes =
     [
         "ו",
+        "וה",
         "ש",
+        "שה",
         "ה",
         "ל",
         "ב"
