@@ -16,7 +16,7 @@
         <EmbeddedResource Include="..\..\..\data-sources\judaism.json">
             <Link>Resources\judaism.json</Link>
         </EmbeddedResource>
-        <None Include="..\..\..\readme.md" Pack="true" PackagePath="\"/>
+        <None Include="..\..\..\readme.md" Pack="true" PackagePath="\" />
     </ItemGroup>
     <ItemGroup>
         <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
@@ -27,6 +27,6 @@
         </AssemblyAttribute>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="System.Text.Json" Version="8.0.3"/>
+        <PackageReference Include="System.Text.Json" Version="8.0.4" />
     </ItemGroup>
 </Project>
