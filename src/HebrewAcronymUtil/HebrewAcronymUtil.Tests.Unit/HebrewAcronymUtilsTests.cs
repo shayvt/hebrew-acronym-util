@@ -94,7 +94,7 @@ public class HebrewAcronymUtilsTests
     public void ExtractWordPrefix_WithPrefix_ReturnsPrefixAndWord()
     {
         const string word = "הבית";
-        var result = HebrewAcronymUtils.ExtractWordPrefix(word);
+        var result = HebrewAcronymUtils.ExtractWordPrefix(word).FirstOrDefault();
 
         result.prefix.Should().Be("ה");
         result.word.Should().Be("בית");
@@ -104,7 +104,7 @@ public class HebrewAcronymUtilsTests
     public void ExtractWordPrefix_WithoutPrefix_ReturnsEmptyPrefixAndOriginalWord()
     {
         const string word = "זית";
-        var result = HebrewAcronymUtils.ExtractWordPrefix(word);
+        var result = HebrewAcronymUtils.ExtractWordPrefix(word).FirstOrDefault();
 
         result.prefix.Should().Be("");
         result.word.Should().Be("זית");
@@ -114,7 +114,7 @@ public class HebrewAcronymUtilsTests
     public void ExtractWordPrefix_NullWord_ThrowsArgumentNullException()
     {
         string? word = null;
-        Action act = () => HebrewAcronymUtils.ExtractWordPrefix(word);
+        Action act = () => HebrewAcronymUtils.ExtractWordPrefix(word!).FirstOrDefault();
 
         act.Should().Throw<ArgumentNullException>();
     }

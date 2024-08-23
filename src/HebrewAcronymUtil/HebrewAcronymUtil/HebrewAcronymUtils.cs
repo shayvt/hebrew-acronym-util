@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HebrewAcronymUtil;
 
@@ -63,7 +64,7 @@ public static class HebrewAcronymUtils
         "ב"
     ];
 
-    public static (string prefix, string word) ExtractWordPrefix(string word)
+    public static IEnumerable<(string prefix, string word)> ExtractWordPrefix(string word)
     {
         if (word is null)
         {
@@ -74,10 +75,10 @@ public static class HebrewAcronymUtils
         {
             if (word.StartsWith(prefix))
             {
-                return (prefix, word[prefix.Length..]);
+                yield return (prefix, word[prefix.Length..]);
             }
         }
 
-        return ("", word);
+        yield return ("", word);
     }
 }

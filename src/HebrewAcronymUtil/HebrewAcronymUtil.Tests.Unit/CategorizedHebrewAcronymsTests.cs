@@ -194,7 +194,7 @@ public class CategorizedHebrewAcronymsTests
         var result = acronyms.ConvertAcronymWithPrefixToWords(acronym);
 
         // Assert
-        result.Should().BeNull();
+        result.Should().BeEmpty();
     }
 
     [Fact]

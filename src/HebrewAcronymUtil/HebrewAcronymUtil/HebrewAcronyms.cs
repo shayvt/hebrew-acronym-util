@@ -46,21 +46,24 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
             return converted;
         }
 
-        var (prefix, acronymWithoutPrefix) = HebrewAcronymUtils.ExtractWordPrefix(cleaned);
-
-        if (prefix is "")
+        foreach (var (prefix, acronymWithoutPrefix) in HebrewAcronymUtils.ExtractWordPrefix(cleaned))
         {
-            return null;
+            if (prefix is "")
+            {
+                return "";
+            }
+
+            var convertedWithoutPrefix = ConvertAcronymWithoutQuoteToWords(acronymWithoutPrefix);
+
+            if (convertedWithoutPrefix is null)
+            {
+                continue;
+            }
+
+            return $"{prefix}{convertedWithoutPrefix}";
         }
 
-        var convertedWithoutPrefix = ConvertAcronymWithoutQuoteToWords(acronymWithoutPrefix);
-
-        if (convertedWithoutPrefix is null)
-        {
-            return null;
-        }
-
-        return $"{prefix}{convertedWithoutPrefix}";
+        return "";
     }
 
     public string? ConvertAcronymWithoutQuoteToWords(string acronym)
