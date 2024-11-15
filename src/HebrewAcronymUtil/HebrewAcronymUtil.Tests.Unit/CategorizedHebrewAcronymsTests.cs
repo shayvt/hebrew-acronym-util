@@ -202,10 +202,10 @@ public class CategorizedHebrewAcronymsTests
     {
         // Arrange
         var acronyms = new HebrewAcronymImplementationTest();
-        string acronym = null;
+        string? acronym = null;
 
         // Act
-        Action act = () => acronyms.ConvertAcronymWithPrefixToWords(acronym);
+        Action act = () => acronyms.ConvertAcronymWithPrefixToWords(acronym!);
 
         // Assert
         act.Should().Throw<ArgumentNullException>();

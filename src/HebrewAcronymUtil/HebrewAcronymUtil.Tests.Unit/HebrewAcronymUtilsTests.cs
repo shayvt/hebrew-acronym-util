@@ -114,7 +114,7 @@ public class HebrewAcronymUtilsTests
     public void ExtractWordPrefix_NullWord_ThrowsArgumentNullException()
     {
         string? word = null;
-        Action act = () => HebrewAcronymUtils.ExtractWordPrefix(word!).FirstOrDefault();
+        var act = () => HebrewAcronymUtils.ExtractWordPrefix(word!).FirstOrDefault();
 
         act.Should().Throw<ArgumentNullException>();
     }

@@ -6,7 +6,7 @@ namespace HebrewAcronymUtil;
 
 public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
 {
-    protected readonly Dictionary<string, string> AcronymsDict = new();
+    protected readonly Dictionary<string, string> AcronymsDict = [];
 
     public IEnumerator<KeyValuePair<string, string>> GetEnumerator()
     {
