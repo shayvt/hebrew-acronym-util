@@ -31,11 +31,10 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
         if (stream is null)
         {
             Trace.Write($"Resource not found for {category}");
-            return new Dictionary<string, string>();
+            return [];
         }
 
-        return await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ??
-               new Dictionary<string, string>();
+        return await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ?? [];
     }
 
     public async Task Initialize()
