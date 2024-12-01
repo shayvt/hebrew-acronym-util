@@ -18,44 +18,40 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
         return GetEnumerator();
     }
 
-    public string? ConvertAcronymToWords(string acronym)
+    public string ConvertAcronymToWords(string acronym)
     {
         if (acronym is null)
         {
             throw new ArgumentNullException(nameof(acronym));
         }
 
-        var cleaned = HebrewAcronymUtils.RemoveAcronymQuoteChars(acronym);
-
-        return ConvertAcronymWithoutQuoteToWords(cleaned);
+        return AcronymsDict.GetValueOrDefault(acronym) ?? "";
     }
 
-    public string? ConvertAcronymWithPrefixToWords(string acronym)
+    public string ConvertAcronymWithPrefixToWords(string acronym)
     {
         if (acronym is null)
         {
             throw new ArgumentNullException(nameof(acronym));
         }
 
-        var cleaned = HebrewAcronymUtils.RemoveAcronymQuoteChars(acronym);
+        var converted = ConvertAcronymToWords(acronym);
 
-        var converted = ConvertAcronymWithoutQuoteToWords(cleaned);
-
-        if (converted is not null)
+        if (converted != "")
         {
             return converted;
         }
 
-        foreach (var (prefix, acronymWithoutPrefix) in HebrewAcronymUtils.ExtractWordPrefix(cleaned))
+        foreach (var (prefix, acronymWithoutPrefix) in HebrewAcronymUtils.ExtractWordPrefix(acronym))
         {
             if (prefix is "")
             {
                 return "";
             }
 
-            var convertedWithoutPrefix = ConvertAcronymWithoutQuoteToWords(acronymWithoutPrefix);
+            var convertedWithoutPrefix = ConvertAcronymToWords(acronymWithoutPrefix);
 
-            if (convertedWithoutPrefix is null)
+            if (convertedWithoutPrefix == "")
             {
                 continue;
             }
@@ -64,15 +60,5 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
         }
 
         return "";
-    }
-
-    public string? ConvertAcronymWithoutQuoteToWords(string acronym)
-    {
-        if (acronym is null)
-        {
-            throw new ArgumentNullException(nameof(acronym));
-        }
-
-        return AcronymsDict.GetValueOrDefault(acronym);
     }
 }

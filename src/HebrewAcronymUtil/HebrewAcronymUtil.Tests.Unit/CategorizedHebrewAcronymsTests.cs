@@ -80,9 +80,9 @@ public class CategorizedHebrewAcronymsTests
     {
         const string data = """
                             {
-                            "קבה": "קדוש ברוך הוא",
-                            "בנא": "בני אדם",
-                            "חו": "חס וחלילה"
+                            "קב\"ה": "קדוש ברוך הוא",
+                            "בנ\"א": "בני אדם",
+                            "ח\"ו": "חס וחלילה"
                             }
                             """;
 
@@ -157,7 +157,7 @@ public class CategorizedHebrewAcronymsTests
     {
         // Arrange
         var acronyms = new HebrewAcronymImplementationTest();
-        acronyms.AddAcronym("יצהר", "יצר הרע");
+        acronyms.AddAcronym("יצה\"ר", "יצר הרע");
         const string acronym = """היצה"ר""";
 
         // Act
@@ -172,7 +172,7 @@ public class CategorizedHebrewAcronymsTests
     {
         // Arrange
         var acronyms = new HebrewAcronymImplementationTest();
-        acronyms.AddAcronym("יצהר", "יצר הרע");
+        acronyms.AddAcronym("יצה\"ר", "יצר הרע");
         const string acronym = """יצה"ר""";
 
         // Act
