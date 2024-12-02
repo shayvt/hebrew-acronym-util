@@ -18,17 +18,17 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
         return GetEnumerator();
     }
 
-    public string ConvertAcronymToWords(string acronym)
+    public string? ConvertAcronymToWords(string acronym)
     {
         if (acronym is null)
         {
             throw new ArgumentNullException(nameof(acronym));
         }
 
-        return AcronymsDict.GetValueOrDefault(acronym) ?? "";
+        return AcronymsDict.GetValueOrDefault(acronym);
     }
 
-    public string ConvertAcronymWithPrefixToWords(string acronym)
+    public string? ConvertAcronymWithPrefixToWords(string acronym)
     {
         if (acronym is null)
         {
@@ -37,21 +37,21 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
 
         var converted = ConvertAcronymToWords(acronym);
 
-        if (converted != "")
+        if (converted is not null)
         {
             return converted;
         }
 
         foreach (var (prefix, acronymWithoutPrefix) in HebrewAcronymUtils.ExtractWordPrefix(acronym))
         {
-            if (prefix is "")
+            if (prefix is null)
             {
-                return "";
+                return null;
             }
 
             var convertedWithoutPrefix = ConvertAcronymToWords(acronymWithoutPrefix);
 
-            if (convertedWithoutPrefix == "")
+            if (convertedWithoutPrefix is null)
             {
                 continue;
             }
@@ -59,6 +59,6 @@ public abstract class HebrewAcronyms : IEnumerable<KeyValuePair<string, string>>
             return $"{prefix}{convertedWithoutPrefix}";
         }
 
-        return "";
+        return null;
     }
 }
