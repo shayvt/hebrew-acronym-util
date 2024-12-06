@@ -8,5 +8,5 @@ public interface IHebrewAcronyms
 
     public string? ConvertAcronymWithPrefixToWords(string acronym);
 
-    public Task Initialize();
+    public Task Initialize(params string[]? ignoredAcronyms);
 }

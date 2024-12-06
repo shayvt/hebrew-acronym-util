@@ -39,11 +39,7 @@ public class CategorizedHebrewAcronymsTests
 
         CategorizedHebrewAcronyms sut = new(resourceProvider)
         {
-            Categories =
-            [
-                AcronymCategory.Common,
-                AcronymCategory.Judaism
-            ]
+            Categories = [AcronymCategory.Common, AcronymCategory.Judaism]
         };
 
         await sut.Initialize();
@@ -53,6 +49,35 @@ public class CategorizedHebrewAcronymsTests
         sut.Should().ContainKey("בנא").WhoseValue.Should().Be("בני אדם");
         sut.Should().ContainKey("חו").WhoseValue.Should().Be("חס וחלילה");
         sut.Should().ContainKey("יצהר").WhoseValue.Should().Be("יצר הרע");
+    }
+
+    [Fact]
+    public async Task Initialize_ShouldIgnoreAcronyms_WhenIgnoredListAdded()
+    {
+        const string commonData = """
+                                  {
+                                    "קב\"ה": "קדוש ברוך הוא",
+                                    "בנ\"א": "בני אדם",
+                                    "ח\"ו": "חס וחלילה"
+                                  }
+                                  """;
+        var commonStream = new MemoryStream(Encoding.UTF8.GetBytes(commonData));
+
+        var resourceProvider = Substitute.For<IResourceProvider>();
+
+        resourceProvider
+            .GetResourceStream(Arg.Is<AcronymCategory>(a => a == AcronymCategory.Common))
+            .Returns(commonStream);
+
+        CategorizedHebrewAcronyms sut = new(resourceProvider)
+        {
+            Categories = [AcronymCategory.Common]
+        };
+
+        await sut.Initialize("בנ\"א", "ח\"ו");
+
+        sut.Should().HaveCount(1);
+        sut.Should().ContainKey("קב\"ה").WhoseValue.Should().Be("קדוש ברוך הוא");
     }
 
     [Fact]

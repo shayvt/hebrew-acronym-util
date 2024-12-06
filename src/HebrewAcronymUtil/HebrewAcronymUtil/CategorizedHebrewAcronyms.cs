@@ -9,7 +9,6 @@ namespace HebrewAcronymUtil;
 public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
 {
     private readonly IResourceProvider _resourceProvider;
-    private bool _isLoaded;
 
     public required List<AcronymCategory> Categories { get; init; }
 
@@ -37,11 +36,13 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
         return await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ?? [];
     }
 
-    public async Task Initialize()
+    public async Task Initialize(params string[]? ignoredAcronyms)
     {
-        if (_isLoaded)
+        HashSet<string> ignoredAcronymsSet = [];
+
+        if (ignoredAcronyms is not null)
         {
-            return;
+            ignoredAcronymsSet = [.. ignoredAcronyms];
         }
 
         foreach (var category in Categories)
@@ -50,10 +51,13 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
 
             foreach (var (key, value) in acronyms)
             {
+                if (ignoredAcronymsSet.Contains(key))
+                {
+                    continue;
+                }
+
                 AcronymsDict[key] = value;
             }
         }
-
-        _isLoaded = true;
     }
 }
