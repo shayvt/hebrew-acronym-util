@@ -36,27 +36,18 @@ public class CategorizedHebrewAcronyms : HebrewAcronyms, IHebrewAcronyms
         return await JsonSerializer.DeserializeAsync<Dictionary<string, string>>(stream) ?? [];
     }
 
-    public async Task Initialize(params string[]? ignoredAcronyms)
+    public async Task Initialize(params HashSet<string> ignoredAcronyms)
     {
-        HashSet<string> ignoredAcronymsSet = [];
-
-        if (ignoredAcronyms is not null)
-        {
-            ignoredAcronymsSet = [.. ignoredAcronyms];
-        }
-
         foreach (var category in Categories)
         {
             var acronyms = await GetAcronyms(category);
 
             foreach (var (key, value) in acronyms)
             {
-                if (ignoredAcronymsSet.Contains(key))
+                if (!ignoredAcronyms.Contains(key))
                 {
-                    continue;
+                    AcronymsDict[key] = value;
                 }
-
-                AcronymsDict[key] = value;
             }
         }
     }
